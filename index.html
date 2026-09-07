@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -124,3 +125,192 @@
     </script>
   </body>
 </html>
+=======
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Paradzai Katsvairo</title>
+    <meta
+      name="description"
+      content="Paradzai Katsvairo, AI/ML engineer in Bratislava."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=IBM+Plex+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        font-family: "IBM Plex Mono", monospace;
+        color: #f6efe4;
+        background: #1c2218;
+      }
+
+      .glow {
+        position: fixed;
+        inset: -20%;
+        background:
+          radial-gradient(circle at 70% 20%, rgba(201, 164, 72, 0.28), transparent 42%),
+          radial-gradient(circle at 20% 80%, rgba(90, 120, 64, 0.25), transparent 46%);
+        pointer-events: none;
+      }
+
+      .page {
+        position: relative;
+        z-index: 1;
+        width: min(760px, calc(100% - 40px));
+        margin: 0 auto;
+        padding: 48px 0 56px;
+      }
+
+      nav a {
+        color: #f6efe4;
+        margin-right: 14px;
+        font-size: 0.82rem;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+      }
+
+      .who {
+        margin: 28px 0 10px;
+        font-size: 0.82rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        opacity: 0.75;
+      }
+
+      h1,
+      h2,
+      h3 {
+        font-family: "Archivo Black", sans-serif;
+        letter-spacing: -0.03em;
+      }
+
+      h1 {
+        font-size: clamp(2.4rem, 7vw, 4.6rem);
+        line-height: 0.9;
+        margin: 0 0 10px;
+      }
+
+      h2 {
+        font-size: 1.15rem;
+        margin: 28px 0 10px;
+      }
+
+      h3 {
+        font-size: 0.95rem;
+        margin: 16px 0 8px;
+      }
+
+      .role {
+        margin: 0 0 22px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        font-size: 0.82rem;
+        opacity: 0.7;
+      }
+
+      section {
+        padding: 16px 0 4px;
+        border-top: 1px solid rgba(246, 239, 228, 0.18);
+      }
+
+      p {
+        margin: 0 0 12px;
+        line-height: 1.6;
+        opacity: 0.88;
+        max-width: 62ch;
+      }
+
+      img {
+        display: block;
+        width: min(100%, 320px);
+        height: auto;
+        margin: 8px 0 10px;
+      }
+
+      ul {
+        margin: 0 0 12px;
+        padding-left: 18px;
+        line-height: 1.7;
+        opacity: 0.88;
+      }
+
+      a {
+        color: #e2c36a;
+      }
+
+      footer {
+        margin-top: 28px;
+        font-size: 0.8rem;
+        opacity: 0.65;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="glow"></div>
+    <div class="page">
+      <header>
+        <nav>
+          <a href="#focus" title="Jump to work focus">Focus</a>
+        </nav>
+        <p class="who">Bratislava</p>
+        <h1>Paradzai Katsvairo</h1>
+        <p class="role">Medior AI/ML engineer</p>
+      </header>
+
+      <main>
+        <section id="focus">
+          <h2>Focus</h2>
+          <p>
+            I work on language models, retrieval and agents, and on putting those systems into
+            production without turning them into a black box.
+          </p>
+          <p>
+            I am studying an MSc in Computer Science with Artificial Intelligence. This site is the
+            public layer around that work — markup, not a model.
+          </p>
+          <h3>What I keep on the desk</h3>
+          <ul>
+            <li>Retrieval and context for language models</li>
+            <li>Agents that can be inspected, not just demoed</li>
+            <li>Clear HTML so a page still makes sense without the styling</li>
+          </ul>
+          <img
+            src="mark.svg"
+            alt="Four connected nodes, a simple picture of parts talking to each other."
+            title="Connected nodes"
+            width="320"
+            height="200"
+          />
+        </section>
+      </main>
+
+      <footer>
+        Paradzai Katsvairo · <span id="clock"></span>
+      </footer>
+    </div>
+    <script>
+      const clock = document.getElementById("clock");
+      function tick() {
+        clock.textContent = new Date().toLocaleString([], {
+          weekday: "short",
+          hour: "2-digit",
+          minute: "2-digit",
+        });
+      }
+      tick();
+      setInterval(tick, 1000);
+    </script>
+  </body>
+</html>
+>>>>>>> 362fdcf (Adding CICD pipeline)
