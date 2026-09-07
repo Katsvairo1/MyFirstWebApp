@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Paradzai Katsvairo</title>
+    <meta
+      name="description"
+      content="Paradzai Katsvairo, AI/ML engineer in Bratislava."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=IBM+Plex+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        font-family: "IBM Plex Mono", monospace;
+        color: #f6efe4;
+        background: #1c2218;
+      }
+
+      .glow {
+        position: fixed;
+        inset: -20%;
+        background:
+          radial-gradient(circle at 70% 20%, rgba(201, 164, 72, 0.28), transparent 42%),
+          radial-gradient(circle at 20% 80%, rgba(90, 120, 64, 0.25), transparent 46%);
+        pointer-events: none;
+      }
+
+      main {
+        position: relative;
+        z-index: 1;
+        min-height: 100vh;
+        display: grid;
+        place-content: center;
+        padding: 48px 24px;
+      }
+
+      .who {
+        margin: 0 0 10px;
+        font-size: 0.82rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        opacity: 0.75;
+      }
+
+      h1 {
+        font-family: "Archivo Black", sans-serif;
+        font-size: clamp(2.4rem, 7vw, 5.2rem);
+        line-height: 0.9;
+        margin: 0 0 10px;
+        letter-spacing: -0.03em;
+      }
+
+      .role {
+        margin: 0 0 22px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        font-size: 0.82rem;
+        opacity: 0.7;
+      }
+
+      .plate {
+        padding: 18px 18px 16px;
+        border: 1px solid rgba(246, 239, 228, 0.28);
+        max-width: 52ch;
+      }
+
+      .plate p {
+        margin: 0;
+        line-height: 1.6;
+        opacity: 0.88;
+      }
+
+      .plate p + p {
+        margin-top: 12px;
+      }
+
+      .clock {
+        margin-top: 18px;
+        font-size: 0.8rem;
+        opacity: 0.65;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="glow"></div>
+    <main>
+      <p class="who">Bratislava</p>
+      <h1>Paradzai Katsvairo</h1>
+      <p class="role">Medior AI/ML engineer</p>
+      <section class="plate">
+        <p>
+          I work on language models, retrieval and agents, and on putting those systems into
+          production without turning them into a black box.
+        </p>
+        <p>
+          I am studying an MSc in Computer Science with Artificial Intelligence, and using this
+          page to practise HTML, CSS and JavaScript — the layer around the models.
+        </p>
+        <p class="clock" id="clock"></p>
+      </section>
+    </main>
+    <script>
+      const clock = document.getElementById("clock");
+      function tick() {
+        clock.textContent = new Date().toLocaleString([], {
+          weekday: "short",
+          hour: "2-digit",
+          minute: "2-digit",
+        });
+      }
+      tick();
+      setInterval(tick, 1000);
+    </script>
+  </body>
+</html>
