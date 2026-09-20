@@ -39,25 +39,29 @@
       .page {
         position: relative;
         z-index: 1;
-        width: min(760px, calc(100% - 40px));
+        width: min(1100px, 100%);
         margin: 0 auto;
-        padding: 48px 0 56px;
+        padding: max(20px, env(safe-area-inset-top)) 16px max(32px, env(safe-area-inset-bottom));
+      }
+
+      nav {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 4px 16px;
       }
 
       nav a {
-        color: #f6efe4;
-        margin-right: 14px;
-        font-size: 0.82rem;
+        display: inline-flex;
+        align-items: center;
+        min-height: 44px;
         letter-spacing: 0.06em;
         text-transform: uppercase;
       }
 
       .who {
-        margin: 28px 0 10px;
-        font-size: 0.82rem;
+        margin: 12px 0 8px;
         letter-spacing: 0.12em;
         text-transform: uppercase;
-        opacity: 0.75;
       }
 
       h1,
@@ -65,66 +69,118 @@
       h3 {
         font-family: "Archivo Black", sans-serif;
         letter-spacing: -0.03em;
+        overflow-wrap: anywhere;
       }
 
       h1 {
-        font-size: clamp(2.4rem, 7vw, 4.6rem);
-        line-height: 0.9;
+        font-size: clamp(1.85rem, 11vw, 2.6rem);
+        line-height: 0.95;
         margin: 0 0 10px;
       }
 
       h2 {
-        font-size: 1.15rem;
-        margin: 28px 0 10px;
+        margin: 0 0 12px;
       }
 
       h3 {
-        font-size: 0.95rem;
         margin: 16px 0 8px;
       }
 
       .role {
-        margin: 0 0 22px;
+        margin: 0 0 18px;
         letter-spacing: 0.08em;
         text-transform: uppercase;
-        font-size: 0.82rem;
-        opacity: 0.7;
       }
 
       section {
-        padding: 16px 0 4px;
-        border-top: 1px solid rgba(246, 239, 228, 0.18);
+        padding: 16px;
+        border: 1px solid rgba(246, 239, 228, 0.18);
       }
 
       p {
         margin: 0 0 12px;
         line-height: 1.6;
-        opacity: 0.88;
         max-width: 62ch;
       }
 
       img {
         display: block;
-        width: min(100%, 320px);
+        width: 100%;
+        max-width: 100%;
         height: auto;
-        margin: 8px 0 10px;
+        margin: 8px 0 0;
       }
 
       ul {
-        margin: 0 0 12px;
+        margin: 0;
         padding-left: 18px;
         line-height: 1.7;
-        opacity: 0.88;
       }
 
-      a {
-        color: #e2c36a;
+      .split {
+        display: grid;
+        gap: 16px;
+      }
+
+      section + section {
+        margin-top: 16px;
+      }
+
+      .tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      .tags li {
+        border: 1px solid rgba(246, 239, 228, 0.2);
+        padding: 6px 10px;
+        font-size: 0.85rem;
       }
 
       footer {
-        margin-top: 28px;
-        font-size: 0.8rem;
-        opacity: 0.65;
+        margin-top: 20px;
+      }
+
+      footer a {
+        color: #e2c36a;
+      }
+
+      @media (min-width: 800px) {
+        .page {
+          display: grid;
+          grid-template-columns: minmax(240px, 0.85fr) minmax(0, 1.15fr);
+          column-gap: 48px;
+          align-items: start;
+          min-height: 100vh;
+          padding: 56px 40px;
+        }
+
+        header {
+          position: sticky;
+          top: 56px;
+          grid-row: 1 / -1;
+        }
+
+        h1 {
+          font-size: clamp(2.6rem, 5vw, 4.4rem);
+        }
+
+        section {
+          padding: 22px 26px;
+        }
+
+        .split {
+          grid-template-columns: 1fr 1fr;
+          align-items: start;
+        }
+
+        footer {
+          grid-column: 2;
+        }
       }
     </style>
   </head>
@@ -133,51 +189,99 @@
     <div class="page">
       <header>
         <nav>
+          <a href="#focus" title="Jump to work focus" style="color: #e2c36a; text-decoration: none">Focus</a>
+          <a href="#stack" title="Jump to tools" style="color: #e2c36a; text-decoration: none">Stack</a>
+          <a href="#path" title="Jump to study path" style="color: #e2c36a; text-decoration: none">Path</a>
           <a
-            href="#focus"
-            title="Jump to work focus"
-            style="color: #e2c36a; font-size: 14px; text-decoration: none"
-            >Focus</a
+            href="https://www.linkedin.com/in/paradzai-katsvairo-70b60b14b"
+            title="Paradzai Katsvairo on LinkedIn"
+            target="_blank"
+            rel="noopener noreferrer"
+            style="color: #e2c36a; text-decoration: none"
+            >LinkedIn</a
           >
         </nav>
-        <p class="who" style="color: #c9bfae; font-size: 13px; text-align: left">Bratislava</p>
-        <h1 style="color: #f6efe4; font-family: 'Archivo Black', sans-serif">Paradzai Katsvairo</h1>
-        <p class="role" style="color: #e2c36a; font-size: 13px">Medior AI/ML engineer</p>
+        <p class="who" style="color: #c9bfae">Bratislava</p>
+        <h1 style="color: #f6efe4">Paradzai Katsvairo</h1>
+        <p class="role" style="color: #e2c36a">Medior AI/ML engineer</p>
       </header>
 
       <main>
-        <section
-          id="focus"
-          style="background-color: #242b1e; padding: 18px 20px; border-color: #3a4332"
-        >
-          <h2 style="color: #e2c36a; font-size: 22px; text-align: left">Focus</h2>
-          <p style="color: #efe6d6; font-size: 16px; text-align: left">
+        <section id="focus" style="background-color: #242b1e">
+          <h2 style="color: #e2c36a">Focus</h2>
+          <p style="color: #efe6d6">
             I work on language models, retrieval and agents, and on putting those systems into
             production without turning them into a black box.
           </p>
-          <p style="color: #d8d0c2; font-size: 16px">
+          <p style="color: #d8d0c2">
             I am studying an MSc in Computer Science with Artificial Intelligence. This site is the
             public layer around that work — markup, not a model.
           </p>
-          <h3 style="color: #f6efe4; font-size: 16px">What I keep on the desk</h3>
-          <ul style="color: #d8d0c2; font-size: 15px">
-            <li>Retrieval and context for language models</li>
-            <li>Agents that can be inspected, not just demoed</li>
-            <li>Clear HTML so a page still makes sense without the styling</li>
+          <h3 style="color: #f6efe4">What I keep on the desk</h3>
+          <div class="split">
+            <ul style="color: #d8d0c2">
+              <li>Retrieval and context for language models</li>
+              <li>Agents that can be inspected, not just demoed</li>
+              <li>Clear HTML so a page still makes sense without the styling</li>
+            </ul>
+            <img
+              src="mark.svg"
+              alt="Four connected nodes, a simple picture of parts talking to each other."
+              title="Connected nodes"
+              width="320"
+              height="200"
+              style="background-color: #1c2218"
+            />
+          </div>
+        </section>
+
+        <section id="stack" style="background-color: #242b1e">
+          <h2 style="color: #e2c36a">Stack</h2>
+          <p style="color: #d8d0c2">
+            Three years shipping retrieval, agents and backends — Python and FastAPI in production,
+            with models that can be observed rather than only demoed.
+          </p>
+          <h3 style="color: #f6efe4">Tools I use</h3>
+          <ul class="tags" style="color: #d8d0c2">
+            <li>LangGraph</li>
+            <li>LangChain</li>
+            <li>MCP</li>
+            <li>RAG</li>
+            <li>Python</li>
+            <li>FastAPI</li>
+            <li>Docker</li>
+            <li>Kubernetes</li>
+            <li>MongoDB</li>
+            <li>Hugging Face</li>
           </ul>
-          <img
-            src="mark.svg"
-            alt="Four connected nodes, a simple picture of parts talking to each other."
-            title="Connected nodes"
-            width="320"
-            height="200"
-            style="background-color: #1c2218; padding: 12px"
-          />
+        </section>
+
+        <section id="path" style="background-color: #242b1e">
+          <h2 style="color: #e2c36a">Path</h2>
+          <p style="color: #d8d0c2">
+            MSc Computer Science with Artificial Intelligence at Sheffield Hallam University (in
+            progress). BCom in Business Informatics from the University of South Africa.
+          </p>
+          <h3 style="color: #f6efe4">Certificates</h3>
+          <ul style="color: #d8d0c2">
+            <li>IBM RAG and Agentic AI Professional Certificate</li>
+            <li>IBM Build AI Agents using MCP</li>
+            <li>Microsoft Azure AI Fundamentals</li>
+            <li>Duke University DevOps, DataOps, MLOps</li>
+          </ul>
         </section>
       </main>
 
-      <footer style="color: #b7ae9e; font-size: 13px; text-align: left">
-        Paradzai Katsvairo · <span id="clock"></span>
+      <footer style="color: #b7ae9e">
+        Paradzai Katsvairo ·
+        <a
+          href="https://www.linkedin.com/in/paradzai-katsvairo-70b60b14b"
+          title="Open LinkedIn profile"
+          target="_blank"
+          rel="noopener noreferrer"
+          >LinkedIn</a
+        >
+        · <span id="clock"></span>
       </footer>
     </div>
     <script>
