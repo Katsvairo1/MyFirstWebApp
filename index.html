@@ -141,6 +141,55 @@
         font-size: 0.85rem;
       }
 
+      .tool-search {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        gap: 8px;
+        margin: 0 0 12px;
+      }
+
+      .tool-search label,
+      .tool-search output {
+        grid-column: 1 / -1;
+      }
+
+      .tool-search label {
+        color: #d8d0c2;
+      }
+
+      .tool-search input,
+      .tool-search button {
+        min-height: 44px;
+        border: 1px solid rgba(246, 239, 228, 0.35);
+        border-radius: 0;
+        padding: 8px 12px;
+        color: #f6efe4;
+        background: #1c2218;
+        font: inherit;
+      }
+
+      .tool-search button {
+        color: #1c2218;
+        background: #e2c36a;
+        cursor: pointer;
+      }
+
+      .tool-search input:focus-visible,
+      .tool-search button:focus-visible {
+        outline: 2px solid #e2c36a;
+        outline-offset: 2px;
+      }
+
+      .tool-search output {
+        min-height: 1.6em;
+        color: #b7ae9e;
+        font-size: 0.85rem;
+      }
+
+      .tags li[hidden] {
+        display: none;
+      }
+
       footer {
         margin-top: 20px;
       }
@@ -242,6 +291,18 @@
             with models that can be observed rather than only demoed.
           </p>
           <h3 style="color: #f6efe4">Tools I use</h3>
+          <form class="tool-search" id="tool-search" role="search">
+            <label for="tool-query">Find a tool</label>
+            <input
+              id="tool-query"
+              name="q"
+              type="search"
+              placeholder="Try Python or RAG"
+              autocomplete="off"
+            />
+            <button type="reset">Clear</button>
+            <output id="tool-count" aria-live="polite"></output>
+          </form>
           <ul class="tags" style="color: #d8d0c2">
             <li>LangGraph</li>
             <li>LangChain</li>
@@ -286,6 +347,32 @@
     </div>
     <script>
       const clock = document.getElementById("clock");
+      const toolSearch = document.getElementById("tool-search");
+      const toolQuery = document.getElementById("tool-query");
+      const toolCount = document.getElementById("tool-count");
+      const tools = [...document.querySelectorAll(".tags li")];
+
+      function filterTools() {
+        const query = toolQuery.value.trim().toLocaleLowerCase();
+        let visible = 0;
+        for (const tool of tools) {
+          const matches = tool.textContent.toLocaleLowerCase().includes(query);
+          tool.hidden = !matches;
+          if (matches) visible += 1;
+        }
+        toolCount.textContent = query
+          ? `${visible} of ${tools.length} tools shown`
+          : `${tools.length} tools`;
+      }
+
+      toolSearch.addEventListener("submit", (event) => {
+        event.preventDefault();
+        filterTools();
+      });
+      toolSearch.addEventListener("input", filterTools);
+      toolSearch.addEventListener("reset", () => requestAnimationFrame(filterTools));
+      filterTools();
+
       function tick() {
         clock.textContent = new Date().toLocaleString([], {
           weekday: "short",
