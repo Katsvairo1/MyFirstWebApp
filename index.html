@@ -190,6 +190,69 @@
         display: none;
       }
 
+      .quote-card {
+        border: 1px solid rgba(246, 239, 228, 0.2);
+        padding: 14px;
+      }
+
+      .quote-card blockquote {
+        margin: 0;
+        color: #f6efe4;
+        font-family: "Archivo Black", sans-serif;
+        font-size: clamp(1.15rem, 4vw, 1.5rem);
+        line-height: 1.35;
+      }
+
+      .quote-card figcaption {
+        margin-top: 14px;
+        color: #d8d0c2;
+      }
+
+      .quote-actions {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 12px;
+        margin-top: 14px;
+      }
+
+      .quote-actions button {
+        min-height: 44px;
+        border: 1px solid #e2c36a;
+        padding: 8px 12px;
+        color: #1c2218;
+        background: #e2c36a;
+        font: inherit;
+        cursor: pointer;
+      }
+
+      .quote-actions button:focus-visible {
+        outline: 2px solid #f6efe4;
+        outline-offset: 2px;
+      }
+
+      .quote-actions button:disabled {
+        cursor: wait;
+        opacity: 0.7;
+      }
+
+      #quote-status {
+        min-height: 1.6em;
+        color: #b7ae9e;
+        font-size: 0.85rem;
+      }
+
+      .quote-source {
+        display: inline-block;
+        margin-bottom: 12px;
+        color: #e2c36a;
+      }
+
+      .quote-source:focus-visible {
+        outline: 2px solid #f6efe4;
+        outline-offset: 2px;
+      }
+
       footer {
         margin-top: 20px;
       }
@@ -225,6 +288,10 @@
         .split {
           grid-template-columns: 1fr 1fr;
           align-items: start;
+        }
+
+        .quote-card {
+          padding: 18px;
         }
 
         footer {
@@ -281,6 +348,28 @@
               height="200"
               style="background-color: #1c2218"
             />
+          </div>
+        </section>
+
+        <section id="field-note" style="background-color: #242b1e">
+          <h2 style="color: #e2c36a">Field note</h2>
+          <p style="color: #d8d0c2">
+            A fresh thought on work, learning, or creativity — delivered by FreeAPI.
+          </p>
+          <a
+            class="quote-source"
+            href="https://api.freeapi.app/api/v1/public/quotes/quote/random"
+            target="_blank"
+            rel="noopener noreferrer"
+            >View the FreeAPI endpoint</a
+          >
+          <figure class="quote-card" aria-busy="true">
+            <blockquote id="quote-content" aria-live="polite">Loading a field note…</blockquote>
+            <figcaption id="quote-author"></figcaption>
+          </figure>
+          <div class="quote-actions">
+            <button id="quote-refresh" type="button" disabled>Get another quote</button>
+            <output id="quote-status" aria-live="polite">Connecting to FreeAPI…</output>
           </div>
         </section>
 
@@ -351,6 +440,11 @@
       const toolQuery = document.getElementById("tool-query");
       const toolCount = document.getElementById("tool-count");
       const tools = [...document.querySelectorAll(".tags li")];
+      const quoteCard = document.querySelector(".quote-card");
+      const quoteContent = document.getElementById("quote-content");
+      const quoteAuthor = document.getElementById("quote-author");
+      const quoteRefresh = document.getElementById("quote-refresh");
+      const quoteStatus = document.getElementById("quote-status");
 
       function filterTools() {
         const query = toolQuery.value.trim().toLocaleLowerCase();
@@ -372,6 +466,45 @@
       toolSearch.addEventListener("input", filterTools);
       toolSearch.addEventListener("reset", () => requestAnimationFrame(filterTools));
       filterTools();
+
+      async function loadQuote() {
+        quoteRefresh.disabled = true;
+        quoteCard.setAttribute("aria-busy", "true");
+        quoteStatus.textContent = "Connecting to FreeAPI…";
+        quoteContent.textContent = "Loading a field note…";
+        quoteAuthor.textContent = "";
+
+        try {
+          const response = await fetch(
+            "https://api.freeapi.app/api/v1/public/quotes/quote/random"
+          );
+          if (!response.ok) {
+            throw new Error(`FreeAPI request failed (${response.status})`);
+          }
+
+          const result = await response.json();
+          const content = result?.data?.content;
+          const author = result?.data?.author;
+
+          if (![content, author].every((value) => typeof value === "string" && value.trim())) {
+            throw new Error("FreeAPI returned an incomplete quote");
+          }
+
+          quoteContent.textContent = `“${content}”`;
+          quoteAuthor.textContent = `— ${author}`;
+          quoteStatus.textContent = "Quote loaded from FreeAPI.";
+        } catch (error) {
+          quoteContent.textContent = "Could not load a field note.";
+          quoteStatus.textContent =
+            error instanceof Error ? `${error.message}. Try again.` : "Unexpected error. Try again.";
+        } finally {
+          quoteCard.setAttribute("aria-busy", "false");
+          quoteRefresh.disabled = false;
+        }
+      }
+
+      quoteRefresh.addEventListener("click", loadQuote);
+      loadQuote();
 
       function tick() {
         clock.textContent = new Date().toLocaleString([], {
